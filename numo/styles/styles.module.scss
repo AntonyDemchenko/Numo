@@ -1,0 +1,16 @@
+@mixin flexBlock() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //   border: 1px solid red;
+  margin: 10px 0;
+}
+
+.main {
+  @include flexBlock();
+  padding: 30px;
+}
+
+.block {
+  @include flexBlock();
+}
