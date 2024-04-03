@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import styles from "../../../styles/styles.module.scss";
+import styles from "./signin.module.scss";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
@@ -31,19 +31,19 @@ const Signin = () => {
   };
 
   return (
-    <div className={styles.main}>
+    <div className={styles.signin}>
       <div>Sign up</div>
-      <div className="p-2 flex flex-col gap-6">
-        <label>name</label>
+      <div>
         <input
           name="name"
+          placeholder="Email"
           value={userData.name}
           onChange={(e) => setUserData({ ...userData, name: e.target.value })}
         />
         <br />
-        <label>password</label>
         <input
           name="password"
+          placeholder="Password"
           value={userData.password}
           onChange={(e) =>
             setUserData({ ...userData, password: e.target.value })
@@ -56,6 +56,10 @@ const Signin = () => {
             Cancel
           </Link>
         </div>
+        <div>OR</div>
+        <Link href="http://localhost:5000/api/auth/google">
+          Sign In with Google
+        </Link>
       </div>
     </div>
   );

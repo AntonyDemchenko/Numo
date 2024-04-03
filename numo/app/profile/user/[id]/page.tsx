@@ -10,6 +10,7 @@ type Props = {
 
 const ProfilePage = async (props: Props) => {
   const session = await getServerSession(authOptions);
+
   const response = await fetch(Backend_URL + `/api/user/${props.params.id}`, {
     method: "GET",
     headers: {
@@ -17,6 +18,7 @@ const ProfilePage = async (props: Props) => {
       "Content-Type": "application/json",
     },
   });
+
   const user = await response.json();
 
   return (

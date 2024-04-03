@@ -1,0 +1,17 @@
+@use "variables" as v;
+
+.signInButton_block {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin: 0 5px;
+}
+
+.signin {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: v.$primary-color-blue;
+}

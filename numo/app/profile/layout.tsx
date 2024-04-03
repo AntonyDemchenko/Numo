@@ -8,6 +8,7 @@ export default async function ProfileLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+
   return (
     <div className="main_content">
       <h3>Profile list</h3>

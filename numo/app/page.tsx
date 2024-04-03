@@ -1,9 +1,12 @@
 import Image from "next/image";
-// import styles from "./page.module.css";
-// import variables from "../styles/variables.module.scss";
-import styles from "../styles/styles.module.scss";
 
-export default function Home() {
+import styles from "../styles/styles.module.scss";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
   return (
     <div className={styles.main}>
       <div className={styles.block}>
