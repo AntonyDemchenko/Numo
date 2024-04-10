@@ -1,4 +1,3 @@
-import { Backend_URL } from "@/app/lib/Constants";
 import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth/next";
@@ -6,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 async function refreshToken(token: JWT): Promise<JWT> {
-  const res = await fetch(Backend_URL + "/api/auth/refresh", {
+  const res = await fetch(process.env.BACKEND_URL + "/api/auth/refresh", {
     method: "POST",
     headers: {
       authorization: `Refresh ${token.backendTokens.refreshToken}`,
@@ -43,7 +42,7 @@ export const authOptions: NextAuthOptions = {
 
         const { username, password } = credentials;
 
-        const res = await fetch(Backend_URL + "/api/auth/login", {
+        const res = await fetch(process.env.BACKEND_URL + "/api/auth/login", {
           method: "POST",
           body: JSON.stringify({ username, password }),
           headers: { "Content-Type": "application/json" },
@@ -78,13 +77,16 @@ export const authOptions: NextAuthOptions = {
         };
 
         try {
-          const res = await fetch(Backend_URL + "/api/auth/googleLogIn", {
-            method: "POST",
-            body: JSON.stringify(userData),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+          const res = await fetch(
+            process.env.BACKEND_URL + "/api/auth/googleLogIn",
+            {
+              method: "POST",
+              body: JSON.stringify(userData),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           const user = await res.json();
 
           return user;
@@ -104,13 +106,16 @@ export const authOptions: NextAuthOptions = {
         };
 
         try {
-          const res = await fetch(Backend_URL + "/api/auth/tokens", {
-            method: "POST",
-            body: JSON.stringify(bodyData),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+          const res = await fetch(
+            process.env.BACKEND_URL + "/api/auth/tokens",
+            {
+              method: "POST",
+              body: JSON.stringify(bodyData),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
           const newUser = await res.json();
 
@@ -140,7 +145,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
-    // signIn: "/auth/signin",
+    signIn: "/auth/signin",
     signOut: "/auth/signout",
     error: "/auth/error", // Error code passed in query string as ?error=
     verifyRequest: "/auth/verify-request", // (used for check email message)

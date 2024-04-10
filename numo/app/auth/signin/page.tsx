@@ -12,6 +12,7 @@ type FormInputs = {
 };
 
 const Signin = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -52,8 +53,11 @@ const Signin = () => {
 
         <div>
           <button onClick={handleSubmit}>Submit</button>
-          <Link className="" href={"/"}>
-            Cancel
+
+          <button onClick={() => router.back()}>Cancel</button>
+
+          <Link className="" href={"/auth/resetPass"}>
+            Forgot password?
           </Link>
         </div>
         <div>OR</div>

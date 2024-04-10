@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Backend_URL } from "../lib/Constants";
 import styles from "../../styles/styles.module.scss";
 import { useRouter } from "next/navigation";
 
@@ -13,28 +12,25 @@ type FormInputs = {
 };
 
 const SignUpPage = () => {
-  const router = useRouter();
+  const { push } = useRouter();
 
   const [userData, setUserData] = useState<FormInputs>({
     name: "",
     email: "",
     password: "",
   });
-  const register = async () => {
-    const res = await fetch(Backend_URL + "/api/auth/signin", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
-      alert(res.statusText);
-      return;
+
+  const handleRegistration = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/auth/signup`,
+      {
+        method: "POST",
+        body: JSON.stringify(userData),
+      }
+    );
+    if (res.status === 200) {
+      push(`/signup/successSignup?email=${userData.email}`);
     }
-    const response = await res.json();
-    alert("User Registered!");
-    router.push("/");
   };
 
   return (
@@ -63,7 +59,7 @@ const SignUpPage = () => {
         />
 
         <div>
-          <button onClick={register}>Submit</button>
+          <button onClick={handleRegistration}>Submit</button>
           <Link className="" href={"/"}>
             Cancel
           </Link>
